@@ -1,0 +1,13 @@
+intents:
+  - greet
+  - name
+
+actions:
+  - utter_Welcome_greeting
+  - utter_name_of_bot
+
+templates:
+  utter_Welcome_greeting:
+  - text: "I am Stark. I love you 3000"
+  utter_name_of_bot:
+  - text: "Rahul. Naam tho suna hi hoga"

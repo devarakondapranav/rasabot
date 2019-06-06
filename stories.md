@@ -1,0 +1,8 @@
+
+## Greeting story
+* greet
+  - utter_Welcome_greeting
+
+## name story
+* name
+  - utter_name_of_bot
