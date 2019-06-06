@@ -1,5 +1,5 @@
 from models import Intent, IntentMessage, Template, Story, StoryStep, db
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -58,7 +58,22 @@ def hello_world():
 
 @app.route('/viewIntents')
 def viewIntents():
-	pass
+	intents = Intent.query.all()
+	return render_template("viewIntents.html", intents=intents)
+
+
+@app.route('/getIntentDetails/<int:intentId>')
+def showIntentDetails(intentId):
+	intent_obj = Intent.query.filter_by(id=intentId).first()
+	intent_name = intent_obj.name
+
+	messages = []
+
+
+	for m in IntentMessage.query.filter_by(intent_id = intentId).all():
+		messages.append(m.message)
+
+	return render_template("intent_detail.html", intent_name=intent_name, messages = messages)
 
 
 
@@ -115,14 +130,7 @@ def train():
 	f.close()
 
 
-
-
-
 	return "Done yo so"
-
-
-
-
 
 
 	
