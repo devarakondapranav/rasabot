@@ -1,36 +1,42 @@
 intents:
   - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - name
+  - ceo
+  - profit
+  - bot_name
+  - ceoInfo
+  - ceoSal
+  - marketCap
+  - newProducts
 
 actions:
-- utter_greet
-- utter_cheer_up
-- utter_did_that_help
-- utter_happy
-- utter_goodbye
-- utter_name
+  - utter_Welcome_greeting
+  - utter_name_of_bot
+  - utter_ceoText
+  - utter_salary_response
+  - utter_byeMessage
+  - utter_market_cap
+  - utter_newProducts
 
 templates:
-  utter_greet:
-  - text: "Hey! How are you?"
+  utter_Welcome_greeting:
+  - text: "Hi how may i help you
+"
 
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+  utter_name_of_bot:
+  - text: "Rahul. Naam tho suna hi hoga"
 
-  utter_did_that_help:
-  - text: "Did that help you?"
+  utter_ceoText:
+  - text: "Tim cook is the ceo of Apple."
 
-  utter_happy:
-  - text: "Great carry on!"
+  utter_salary_response:
+  - text: "He makes 500$ a year."
 
-  utter_goodbye:
-  - text: "Bye"
+  utter_byeMessage:
+  - text: "It was nice talking to you"
 
-  utter_name:
-  - text: "My name is Stark. I love you 3000"
+  utter_market_cap:
+  - text: "The market cap of Apple is $850bn"
+
+  utter_newProducts:
+  - text: "We are planning to launch iPhone XI in this september"
+

@@ -1,31 +1,22 @@
-## happy path
+
+## Greeting story
 * greet
-  - utter_greet
-* mood_great
-  - utter_happy
+  - utter_Welcome_greeting
 
-## sad path 1
+## ceodetails
 * greet
-  - utter_greet
-* mood_unhappy
-  - utter_cheer_up
-  - utter_did_that_help
-* affirm
-  - utter_happy
+  - utter_Welcome_greeting
+* ceoInfo
+  - utter_ceoText
+* ceoSal
+  - utter_salary_response
 
-## sad path 2
+## cap and products
 * greet
-  - utter_greet
-* mood_unhappy
-  - utter_cheer_up
-  - utter_did_that_help
-* deny
-  - utter_goodbye
-
-## say goodbye
-* goodbye
-  - utter_goodbye
-
-## say name
-* name
-  - utter_name
+  - utter_Welcome_greeting
+* ceoInfo
+  - utter_ceoText
+* marketCap
+  - utter_market_cap
+* newProducts
+  - utter_newProducts

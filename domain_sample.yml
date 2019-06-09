@@ -1,13 +1,21 @@
 intents:
   - greet
   - name
+  - ceo
+  - profit
 
 actions:
   - utter_Welcome_greeting
   - utter_name_of_bot
+  - utter_ceoText
 
 templates:
   utter_Welcome_greeting:
   - text: "I am Stark. I love you 3000"
+
   utter_name_of_bot:
   - text: "Rahul. Naam tho suna hi hoga"
+
+  utter_ceoText:
+  - text: "Tim cook is the ceo of Apple."
+

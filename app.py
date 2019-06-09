@@ -1,5 +1,5 @@
 from models import Intent, IntentMessage, Template, Story, StoryStep, db
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 
 app = Flask(__name__)
@@ -53,7 +53,7 @@ db.init_app(app)
 
 @app.route('/')
 def hello_world():
-   return ('Hello World')
+   return render_template("home.html")
 
 
 @app.route('/viewIntents')
@@ -69,13 +69,112 @@ def showIntentDetails(intentId):
 
 	messages = []
 
-
 	for m in IntentMessage.query.filter_by(intent_id = intentId).all():
 		messages.append(m.message)
-
 	return render_template("intent_detail.html", intent_name=intent_name, messages = messages)
 
 
+@app.route("/viewStories")
+def showStories():
+	stories = Story.query.all()
+	return render_template("viewStories.html", stories=stories)
+
+
+
+@app.route("/getStoryDetails/<storyName>/<int:storyId>")
+def showStoryDetails(storyName, storyId):
+	story_steps = StoryStep.query.filter_by(story_id=storyId).all()
+	m = []
+	for x in story_steps:
+		if(x.isIntent):
+			m.append("Intent *" + Intent.query.filter_by(id = x.int_or_temp_id).first().name)
+		else:
+			m.append("--------- Text: "+Template.query.filter_by(id=x.int_or_temp_id).first().name)
+
+
+	return render_template("story_detail.html", storyName=storyName, story_steps=story_steps, m=m)
+
+
+@app.route('/newIntent')
+def newIntent():
+	return render_template("newIntent.html")
+
+@app.route('/createIntent', methods = ['POST'])
+def createIntent():
+	rowcount = int(request.form['rowcount'])
+	intent_name = request.form['intent_name']
+	if(len(intent_name)!=0):
+		intObj = Intent(name=intent_name)
+		db.session.add(intObj)
+		db.session.commit()
+
+		intentId = Intent.query.filter_by(name=intent_name).first().id
+		
+		for i in range(rowcount):
+			mess = request.form['message' + str(i)]
+			if(len(mess)!=0):
+				temp = IntentMessage(message=mess, intent_id = intentId)
+				db.session.add(temp)
+				db.session.commit()
+			else:
+				continue
+		return render_template("success.html", message="Intent created successfully")
+	else:
+
+		return render_template("success.html", message="Dont leave the intent name blank")
+
+
+
+@app.route("/newTemplate")
+def newTemplate():
+	return render_template("newTemplate.html")
+
+@app.route("/createTemplate", methods=['POST'])
+def createTemplate():
+	try:
+		temp_name = request.form['temp_name']
+		temp_text = request.form['temp_text']
+		temp_obj = Template(name=temp_name, text = temp_text)
+		db.session.add(temp_obj)
+		db.session.commit()
+		return render_template("success.html", message="Template created successfully")
+	except Exception as msg:
+		return render_template("success.html", message=str(msg))
+
+@app.route("/newStory")
+def newStory():
+	intents = Intent.query.all()
+	templates = Template.query.all()
+
+
+	return render_template("newStory.html", intents = intents, templates=templates)
+
+
+# जन्मदिन मुबारक नयाज़ भाई
+
+
+	
+@app.route('/createStory', methods=['POST'])
+def createStory():
+	story_name = request.form['story_name']
+	rowcount = request.form['rowcount']
+
+	story_obj = Story(name=story_name)
+	db.session.add(story_obj)
+	db.session.commit()
+	story_obj_id = Story.query.filter_by(name = story_name).first().id
+
+	for i in range(int(rowcount)):
+		foo = request.form['row' + str(i)]
+		if(foo.split()[0] == 'intent'):
+			foobar = StoryStep(isIntent=True, story_id=story_obj_id, int_or_temp_id = int(foo.split()[1]))
+			db.session.add(foobar)
+			db.session.commit()
+		else:
+			foobar = StoryStep(isIntent=False, story_id=story_obj_id, int_or_temp_id = int(foo.split()[1]))
+			db.session.add(foobar)
+			db.session.commit()
+	return render_template("success.html", message="Story created")
 
 
 
@@ -83,7 +182,7 @@ def showIntentDetails(intentId):
 @app.route('/train')
 def train():
 
-	f = open("nlu.md", "w")
+	f = open("data/nlu.md", "w")
 	all_intents = Intent.query.all()
 
 	for intent in all_intents:
@@ -94,7 +193,7 @@ def train():
 
 	f.close()
 
-	f = open("stories.md", "w")
+	f = open("data/stories.md", "w")
 	all_stories = Story.query.all()
 	for story in all_stories:
 		f.write("\n## " + story.name + "\n")
@@ -111,7 +210,7 @@ def train():
 	templates = Template.query.all()
 
 
-	f = open("domain_sample.yml", "w")
+	f = open("domain.yml", "w")
 	f.write("intents:\n")
 	for intent in all_intents:
 		f.write("  - " + intent.name + "\n")
@@ -120,7 +219,6 @@ def train():
 	for template in templates:
 		f.write("  - utter_" + template.name.replace(" ", "_") + "\n")
 
-	
 
 	f.write("\ntemplates:\n")
 	for template in templates:
@@ -129,17 +227,13 @@ def train():
 
 	f.close()
 
+	return render_template("success.html", message="Done training")
 
-	return "Done yo so"
-
-
-	
 if __name__ == '__main__':
 	
 	app.run(debug=True)
 
    
-
 
 
 # all_intents = Intent.query.all()

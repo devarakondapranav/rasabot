@@ -1,58 +1,39 @@
+
 ## intent:greet
-- hey
-- hello
-- hi
-- good morning
-- good evening
-- hey there
+- Hello
+- Hey
+- Hi
 
-## intent:goodbye
-- bye
-- goodbye
-- see you around
-- see you later
+## intent:ceo
+- who is your ceo?
 
-## intent:affirm
-- yes
-- indeed
-- of course
-- that sounds good
-- correct
+## intent:profit
+- how much money does this company make?
+- what is the net profit of this company?
+- profit of this company
 
-## intent:deny
-- no
-- never
-- I don't think so
-- don't like that
-- no way
-- not really
-
-## intent:mood_great
-- perfect
-- very good
-- great
-- amazing
-- wonderful
-- I am feeling very good
-- I am great
-- I'm good
-
-## intent:mood_unhappy
-- sad
-- very sad
-- unhappy
-- bad
-- very bad
-- awful
-- terrible
-- not very good
-- extremely sad
-- so sad
-
-
-
-## intent:name
+## intent:bot_name
 - what is your name
-- name
-- who are you
-- who
+- who are you?
+- whats your name
+- tell me your name
+
+## intent:ceoInfo
+- Who is the ceo?
+- ceo?
+- Who is the chief execute officer your company?
+
+## intent:ceoSal
+- What is his salary?
+- What is ceo's salary
+- salary of ceo
+
+## intent:marketCap
+- What is the market capitalization
+- what is the market cap
+- market cap
+
+## intent:newProducts
+- what new products are coming?
+- new products
+- future products
