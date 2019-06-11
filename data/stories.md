@@ -1,22 +1,16 @@
 
-## Greeting story
+## happy_path
 * greet
-  - utter_Welcome_greeting
+  - utter_greetTemp
+* great
+  - utter_happyTemp
 
-## ceodetails
+## sad_path
 * greet
-  - utter_Welcome_greeting
-* ceoInfo
-  - utter_ceoText
-* ceoSal
-  - utter_salary_response
+  - utter_greetTemp
+* sad
+  - utter_sad
 
-## cap and products
-* greet
-  - utter_Welcome_greeting
-* ceoInfo
-  - utter_ceoText
-* marketCap
-  - utter_market_cap
-* newProducts
-  - utter_newProducts
+## company_path
+* company_details
+ - action_getweather

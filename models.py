@@ -10,6 +10,8 @@ db = SQLAlchemy(app)
 class Intent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
+    isFact = db.Column(db.BOOLEAN, unique=False, nullable=True)
+    templateId = db.Column(db.Integer, unique=False, nullable=True)
     
 
     def __repr__(self):

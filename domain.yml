@@ -1,42 +1,31 @@
 intents:
   - greet
-  - ceo
-  - profit
-  - bot_name
-  - ceoInfo
-  - ceoSal
-  - marketCap
-  - newProducts
+  - great
+  - sad
+  - company_details
 
 actions:
-  - utter_Welcome_greeting
-  - utter_name_of_bot
-  - utter_ceoText
-  - utter_salary_response
-  - utter_byeMessage
-  - utter_market_cap
-  - utter_newProducts
+  - utter_greetTemp
+  - utter_happyTemp
+  - utter_sad
+  - utter_getting_info
+  - action_getweather
+
+slots:
+  company:
+    type: text
+
 
 templates:
-  utter_Welcome_greeting:
-  - text: "Hi how may i help you
-"
+  utter_greetTemp:
+  - text: "Hi. How are you feeling?"
 
-  utter_name_of_bot:
-  - text: "Rahul. Naam tho suna hi hoga"
+  utter_happyTemp:
+  - text: "Wow. That's great. Go ahead"
 
-  utter_ceoText:
-  - text: "Tim cook is the ceo of Apple."
+  utter_sad:
+  - text: "Dont feel low. You will be fine soon :)"
 
-  utter_salary_response:
-  - text: "He makes 500$ a year."
-
-  utter_byeMessage:
-  - text: "It was nice talking to you"
-
-  utter_market_cap:
-  - text: "The market cap of Apple is $850bn"
-
-  utter_newProducts:
-  - text: "We are planning to launch iPhone XI in this september"
+  utter_getting_info:
+  - text: "Please wait while I fetch info"
 

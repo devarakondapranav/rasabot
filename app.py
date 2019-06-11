@@ -9,7 +9,7 @@ db.init_app(app)
 
 
 ########## Creating a sample intent 
-# db.create_all()
+#db.create_all()
 
 # nameInt = Intent(name="greet")
 # db.session.add(nameInt)
@@ -94,6 +94,28 @@ def showStoryDetails(storyName, storyId):
 
 	return render_template("story_detail.html", storyName=storyName, story_steps=story_steps, m=m)
 
+@app.route("/showFacts")
+def showFacts():
+
+	facts = []
+
+	intents = Intent.query.all()
+	
+	for intent in intents:
+		if(intent.isFact):
+			target = Template.query.filter_by(id=intent.templateId).first().text
+			facts.append(intent.name +" >>> " + target)
+
+	return render_template("showFacts.html", facts=facts)
+
+
+@app.route('/viewTemplates')
+def showTemplates():
+
+	templates = Template.query.all()
+	return render_template("showTemplates.html", templates=templates)
+
+
 
 @app.route('/newIntent')
 def newIntent():
@@ -104,7 +126,7 @@ def createIntent():
 	rowcount = int(request.form['rowcount'])
 	intent_name = request.form['intent_name']
 	if(len(intent_name)!=0):
-		intObj = Intent(name=intent_name)
+		intObj = Intent(name=intent_name, isFact = False, templateId = -1)
 		db.session.add(intObj)
 		db.session.commit()
 
@@ -146,12 +168,10 @@ def newStory():
 	intents = Intent.query.all()
 	templates = Template.query.all()
 
-
 	return render_template("newStory.html", intents = intents, templates=templates)
 
 
 # जन्मदिन मुबारक नयाज़ भाई
-
 
 	
 @app.route('/createStory', methods=['POST'])
@@ -177,6 +197,35 @@ def createStory():
 	return render_template("success.html", message="Story created")
 
 
+
+
+
+@app.route('/newFact')
+def newFact():
+	intents = Intent.query.all()
+	templates = Template.query.all()
+
+
+
+
+	return render_template("newFact.html", intents = intents, templates=templates)
+
+
+@app.route('/createFact', methods=['POST'])
+def createFact():
+
+	intent_id = int(request.form['row0'].split()[1])
+	template_id = int(request.form['row1'].split()[1])
+
+	intentObj = Intent.query.filter_by(id = intent_id).first()
+	intentObj.isFact = True
+	intentObj.templateId = template_id
+
+	db.session.commit()
+
+
+
+	return render_template("success.html", message="Added fact to DB")
 
 
 @app.route('/train')
@@ -213,7 +262,11 @@ def train():
 	f = open("domain.yml", "w")
 	f.write("intents:\n")
 	for intent in all_intents:
-		f.write("  - " + intent.name + "\n")
+		if(intent.isFact):  
+			f.write("  - " + intent.name + ": {triggers: utter_"  + Template.query.filter_by(id=intent.templateId).first().name +"}\n" )
+		else:
+			f.write("  - " + intent.name + "\n")
+
 
 	f.write("\nactions:\n")
 	for template in templates:

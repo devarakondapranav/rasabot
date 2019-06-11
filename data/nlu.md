@@ -1,39 +1,28 @@
 
 ## intent:greet
-- Hello
-- Hey
-- Hi
+- hi
+- hello
+- hey
+- heyya
 
-## intent:ceo
-- who is your ceo?
+## intent:great
+- great
+- I am feeling great
+- super
+- superb
+- Awesome
 
-## intent:profit
-- how much money does this company make?
-- what is the net profit of this company?
-- profit of this company
+## intent:sad
+- sad
+- bad
+- I am feeling bad
+- not great
+- not so great
 
-## intent:bot_name
-- what is your name
-- who are you?
-- whats your name
-- tell me your name
-
-## intent:ceoInfo
-- Who is the ceo?
-- ceo?
-- Who is the chief execute officer your company?
-
-## intent:ceoSal
-- What is his salary?
-- What is ceo's salary
-- salary of ceo
-
-## intent:marketCap
-- What is the market capitalization
-- what is the market cap
-- market cap
-
-## intent:newProducts
-- what new products are coming?
-- new products
-- future products
+## intent:company_details
+ - Show me info about [reliance](company)
+ - Show me info about [tata](company)
+ - Show me info about [tata steel](company)
+ - Show me info about [iifl](company)
+ - Show me info about [google](company)
+ - Show me info about [birla](company)
